@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE - Your Personal AI Tutor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+        }
+        .avatar {
+            width: 100px;
+            border-radius: 50%;
+        }
+        .chat-box {
+            text-align: left;
+            background: white;
+            color: black;
+            padding: 15px;
+            border-radius: 10px;
+            max-height: 250px;
+            overflow-y: auto;
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .user { background-color: #d1e7ff; text-align: right; }
+        .ai { background-color: #e8f5e9; text-align: left; }
+        .input-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border-radius: 25px;
+            padding: 10px;
+            margin-top: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 20px;
+        }
+        .send-btn {
+            background: #ff9800;
+            border: none;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            transition: background 0.3s;
+        }
+        .send-btn:hover {
+            background: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-family: 'Pacifico', cursive; font-size: 36px; font-weight: 600;">SAGE</h1>
+        <h2>Your Personal AI Tutor</h2>
+        <img src="avatar.png" alt="AI Tutor" class="avatar">
+        <div class="chat-box" id="chat-box">
+            <div class="message ai">Hello! I'm Sage, your AI tutor. How can I help you today?</div>
+        </div>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button class="send-btn" onclick="sendMessage()">▶</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            let userInput = document.getElementById("user-input").value;
+            if (userInput.trim() === "") return;
+            
+            let chatBox = document.getElementById("chat-box");
+            let userMessage = `<div class='message user'>${userInput}</div>`;
+            chatBox.innerHTML += userMessage;
+            document.getElementById("user-input").value = "";
+            
+            setTimeout(() => {
+                let aiResponse = "I'm here to help!";
+                let videoElement = "";
+                
+                if (userInput.toLowerCase() === "hello") {
+                    aiResponse = "Hello, what do you want to learn today?";
+                } else if (userInput.toLowerCase().includes("phrases and clauses")) {
+                    aiResponse = "Phrases are groups of words without a subject-verb pair, while clauses contain both. Here's a video explanation for you!";
+                    videoElement = `<video src='phrases_clauses.mp4.mp4' controls></video>`;
+                } else if (userInput.toLowerCase().includes("interview tips")) {
+                    aiResponse = "Sure! To ace an interview, prepare well, dress professionally, and be confident! Here are the tips that you should not miss when appearing in an interview.";
+                    videoElement = `<video src='interview_tips.mp4.mp4' controls></video>`;
+                } else if (userInput.toLowerCase() === "thank you") {
+                    aiResponse = "You're welcome! Keep learning!";
+                }
+                
+                let aiMessage = `<div class='message ai'>${aiResponse}</div>`;
+                chatBox.innerHTML += aiMessage;
+                
+                if (videoElement) {
+                    chatBox.innerHTML += videoElement;
+                }
+                
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
+        }
+    </script>
+<footer style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
+    Developed by Twinkle Srivastwa
+</footer>
+</body>
+</html>
